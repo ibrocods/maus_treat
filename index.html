@@ -29,7 +29,7 @@
       --theme-sweet-accent: #F7B5C4;
       --theme-sweet-btn: #E86A85;
       
-      --theme-savory-bg: #7e6767; 
+      --theme-savory-bg: #f18445; 
       --theme-savory-accent: #D4A38D;
       --theme-savory-btn: #C85A32;
     }
@@ -100,41 +100,120 @@
       .nav-links li:hover { color: var(--theme-sweet-accent); }
     }
 
-    /* --- HERO SECTION --- */
-    .hero { position: relative; width: 100%; min-height: 75vh; display: flex; flex-direction: column; align-items: center; padding: 2rem 1.5rem 6rem 1.5rem; z-index: 10; }
-    @media (min-width: 900px) { .hero { flex-direction: row; justify-content: space-between; padding: 4rem 1.5rem 8rem 1.5rem; } }
+/* --- HERO SECTION LAYOUT --- */
+.hero { 
+  position: relative; 
+  width: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding-inline: 0px; 
+  z-index: 10; 
+  overflow-x: hidden; 
+}
 
-    .hero-text-content { flex: 1; max-width: 550px; text-align: center; margin-bottom: 3rem; opacity: 0; animation: slideUpFade 0.8s ease-out 0.2s forwards; }
-    @media (min-width: 900px) { .hero-text-content { text-align: left; margin-bottom: 0; } }
+@media (min-width: 900px) { 
+  .hero { 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    /* Drastically reduced top padding to remove the dead space */
+    padding: 1rem 1.5rem 4rem 1.5rem; 
+    /* Removed the forced 75vh min-height so it sits naturally at the top */
+    min-height: auto; 
+  } 
+}
 
-    /* --- HERO SECTION FONT UPDATE --- */
-    .hero h1 {
-      /* Try 'Great Vibes' first, it's very elegant and flowy */
-      font-family:'Dancing Script', cursive; 
-      
-      /* Cursive fonts usually need to be a bit larger to be readable */
-      font-size: 4.5rem; 
-      
-      font-weight: 800;
-      color: var(--btn-brown); /* Keeps it tied to your earthy palette */
-      margin-bottom: 1rem;
-      
-      /* Optional: Adds a very subtle shadow to make the thin strokes pop */
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1); 
-    }  .hero p { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 500; }
+.hero-text-content { 
+  flex: 1; 
+  width: 100%;
+  max-width: 550px; 
+  text-align: center; 
+  margin-bottom: 2rem; 
+  z-index: 20;
+  opacity: 0; 
+  animation: slideUpFade 0.8s ease-out 0.2s forwards; 
+}
 
-    .btn-main { display: inline-flex; align-items: center; gap: 0.5rem; background-color: var(--btn-brown); color: white; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(74, 32, 16, 0.2); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: none; }
-    .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(74, 32, 16, 0.3); }
+@media (min-width: 900px) { 
+  .hero-text-content { text-align: left; margin-bottom: 0; } 
+}
 
-    @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+/* --- HERO SECTION TYPOGRAPHY --- */
+.hero h1 {
+  font-family: 'Dancing Script', cursive; 
+  /* Dynamically scales: 3rem minimum, 4.5rem maximum */
+  font-size: clamp(3rem, 10vw, 4.5rem); 
+  font-weight: 800;
+  color: var(--btn-brown); 
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1); 
+} 
 
-    .hero-image-slider { flex: 1; position: relative; width: 100%; max-width: 500px; aspect-ratio: 1 / 1; display: flex; justify-content: center; align-items: center; opacity: 0; animation: fadeScaleIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards; }
-    @media (min-width: 900px) { .hero-image-slider { transform: translateX(10%); max-width: 600px; } }
+.hero p { 
+  /* Scales down slightly on mobile to save vertical space */
+  font-size: clamp(0.9rem, 2.5vw, 1.15rem); 
+  color: var(--text-muted); 
+  margin-bottom: 1.5rem; 
+  font-weight: 500; 
+}
 
-    .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out, transform 6s ease-out, visibility 1.5s; transform: scale(0.95); }
-    .slide.active { opacity: 1; visibility: visible; transform: scale(1.05); }
+.btn-main { display: inline-flex; align-items: center; gap: 0.5rem; background-color: var(--btn-brown); color: white; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(74, 32, 16, 0.2); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: none; }
+.btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(74, 32, 16, 0.3); }
 
-    @keyframes fadeScaleIn { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeScaleIn { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+
+/* --- HERO GALLERY SLIDER --- */
+.gallery-wrapper {
+  position: relative;
+  /* Replaced the 100vw/transform hack. 
+     This calculates exactly 100% of the container PLUS the 1.5rem padding on both sides */
+  width: calc(100% + 3rem); 
+  /* Negative margins pull the gallery out to the absolute edges of the screen */
+  margin-left: -1.5rem; 
+  margin-right: -1.5rem; 
+  height: 300px; 
+  overflow: hidden; 
+  opacity: 0; 
+  animation: fadeScaleIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+}
+
+.carousel-item {
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); 
+}
+
+/* Mobile Image Sizes & Positioning */
+.carousel-item.active { width: 220px; height: 220px; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 10; opacity: 1; }
+.carousel-item.prev { width: 130px; height: 130px; left: 0; top: 50%; transform: translate(-50%, -50%); z-index: 5; opacity: 0.6; cursor: pointer; }
+.carousel-item.next { width: 130px; height: 130px; left: 100%; top: 50%; transform: translate(-50%, -50%); z-index: 5; opacity: 0.6; cursor: pointer; }
+.carousel-item.hidden-prev { width: 100px; height: 100px; left: -50%; top: 50%; transform: translate(-50%, -50%); opacity: 0; z-index: 1; }
+.carousel-item.hidden-next { width: 100px; height: 100px; left: 150%; top: 50%; transform: translate(-50%, -50%); opacity: 0; z-index: 1; }
+
+.carousel-item.prev:hover, .carousel-item.next:hover { opacity: 0.9; }
+
+/* --- Desktop Gallery (Vertical Queue) --- */
+@media (min-width: 900px) {
+  .gallery-wrapper {
+    flex: 0 0 50vw; 
+    width: 100%;
+    margin-left: 0;
+    /* Bleed off the right edge only */
+    margin-right: -1.5rem;
+    height: 600px; 
+  }
+
+  .carousel-item.active { width: 380px; height: 380px; left: 50%; top: 50%; }
+  .carousel-item.prev { width: 220px; height: 220px; left: 50%; top: 0; }
+  .carousel-item.next { width: 220px; height: 220px; left: 50%; top: 100%; }
+  .carousel-item.hidden-prev { left: 50%; top: -50%; }
+  .carousel-item.hidden-next { left: 50%; top: 150%; }
+}
 /* --- ABOUT US SECTION --- */
     .about-section {
       padding: 5rem 0;
@@ -375,21 +454,25 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="hero container">
-      <div class="hero-text-content">
-        <h1>Satisfy Every<br>Craving</h1>
-        <p>From deliciously sweet Bento Cakes to spicy, hot Shawarmas. Baked and prepared fresh daily!</p>
-        <a href="#menu" class="btn-main">
-          Order Now
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        </a>
-      </div>
-      <div class="hero-image-slider">
-        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Strawberry Donut" class="slide active">
-        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Shawarma" class="slide">
-        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cake Parfait" class="slide">
-      </div>
-    </section>
+  <section class="hero container" style="padding-bottom: 0px;">
+  <div class="hero-text-content">
+    <h1>Satisfy Every<br>Craving</h1>
+    <p>From deliciously sweet Bento Cakes to spicy, hot Shawarmas. Baked and prepared fresh daily!</p>
+    <a href="#menu" class="btn-main">
+      Order Now
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    </a>
+  </div>
+  
+  <div class="gallery-wrapper">
+    <!-- Ensure you have at least 4-5 images for the carousel to loop smoothly -->
+    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Strawberry Donut" class="carousel-item active">
+    <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Shawarma" class="carousel-item next">
+    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cake Parfait" class="carousel-item hidden-next">
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bento Cake" class="carousel-item hidden-next">
+    <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cookies" class="carousel-item prev">
+  </div>
+</section>
     <!-- ABOUT US SECTION -->
     <section id="about" class="about-section ">
       <div class="container">
@@ -731,6 +814,67 @@
         badge.style.display = 'none';
       }
     }
+    document.addEventListener("DOMContentLoaded", () => {
+  const images = document.querySelectorAll('.carousel-item');
+  if (images.length === 0) return; // Guard clause in case images aren't loaded
+
+  const totalImages = images.length;
+  let currentIndex = 0;
+  let autoPlayTimer;
+
+  function updateCarousel(direction = 'next') {
+    // 1. Strip classes cleanly
+    images.forEach(img => img.className = 'carousel-item');
+
+    // 2. Calculate indices
+    let prevIndex = (currentIndex - 1 + totalImages) % totalImages;
+    let nextIndex = (currentIndex + 1) % totalImages;
+
+    // 3. Assign active status
+    images[currentIndex].classList.add('active');
+    images[prevIndex].classList.add('prev');
+    images[nextIndex].classList.add('next');
+
+    // 4. Assign hidden flow directions
+    images.forEach((img, index) => {
+      if (index !== currentIndex && index !== prevIndex && index !== nextIndex) {
+        img.classList.add(direction === 'next' ? 'hidden-next' : 'hidden-prev');
+      }
+    });
+  }
+
+  function moveNext() {
+    currentIndex = (currentIndex + 1) % totalImages;
+    updateCarousel('next');
+    resetTimer();
+  }
+
+  function movePrev() {
+    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+    updateCarousel('prev');
+    resetTimer();
+  }
+
+  // Click listeners for the visible chopped images
+  images.forEach((img) => {
+    img.addEventListener('click', () => {
+      if (img.classList.contains('next')) moveNext();
+      else if (img.classList.contains('prev')) movePrev();
+    });
+  });
+
+  function startAutoPlay() {
+    autoPlayTimer = setInterval(moveNext, 4500); 
+  }
+
+  function resetTimer() {
+    clearInterval(autoPlayTimer);
+    startAutoPlay();
+  }
+
+  updateCarousel();
+  startAutoPlay();
+});
   </script>
 </body>
 </html>
