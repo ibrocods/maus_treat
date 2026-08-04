@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Maui's Treats</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg-cream: #FAF5F0;
+      --text-dark: #3B1D12;
+      --text-muted: #7A6258;
+      --btn-brown: #4A2010;
+      --whatsapp-green: #25D366;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+    .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Minimal Header */
+    header { padding: 2rem 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(122, 98, 88, 0.1); margin-bottom: 3rem; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--btn-brown); display: flex; align-items: center; gap: 0.5rem; }
+    .back-link { font-weight: 600; font-size: 0.95rem; color: var(--text-muted); transition: color 0.2s; }
+    .back-link:hover { color: var(--btn-brown); }
+
+    /* Cart UI */
+    .cart-header { margin-bottom: 2rem; }
+    .cart-header h1 { font-size: 2.5rem; }
+
+    .cart-item {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    }
+    @media (min-width: 600px) {
+      .cart-item { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+
+    .item-info h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+    .item-info p { color: var(--text-muted); font-weight: 600; }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--bg-cream);
+      padding: 0.5rem;
+      border-radius: 50px;
+    }
+    .qty-btn {
+      background: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--btn-brown);
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .qty-display { font-weight: 700; font-family: 'Poppins', sans-serif; min-width: 20px; text-align: center; }
+
+    .item-total { font-weight: 700; font-size: 1.2rem; color: var(--btn-brown); min-width: 80px; text-align: right; }
+
+    /* Summary & Checkout */
+    .cart-summary {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem;
+      margin-top: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.5rem;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed rgba(122, 98, 88, 0.2);
+    }
+
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background-color: var(--whatsapp-green);
+      color: white;
+      width: 100%;
+      padding: 1.2rem;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: none;
+      margin-top: 2rem;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px rgba(37, 211, 102, 0.4);
+    }
+    .btn-whatsapp svg { fill: currentColor; width: 24px; height: 24px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 0;
+      color: var(--text-muted);
+    }
+    .empty-state h2 { margin-bottom: 1rem; color: var(--text-dark); }
+    .empty-state a { color: var(--btn-brown); font-weight: 600; text-decoration: underline; }
+
+  </style>
+</head>
+<body>
+
+  <header class="container">
+    <a href="index.html" class="logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      Maui's Treats
+    </a>
+    <a href="index.html" class="back-link">← Back to Menu</a>
+  </header>
+
+  <main class="container">
+    <div class="cart-header">
+      <h1>Review Your Order</h1>
+    </div>
+
+    <!-- The list of products will be injected here by JavaScript -->
+    <div id="cart-container"></div>
+
+  </main>
+
+  <script>
+    const WHATSAPP_NUMBER = "2348147420159"; // Replace with real number
+
+    // Load cart from LocalStorage
+    function getCart() {
+      return JSON.parse(localStorage.getItem('mausCart')) || {};
+    }
+
+    // Save cart to LocalStorage
+    function saveCart(cart) {
+      localStorage.setItem('mausCart', JSON.stringify(cart));
+    }
+
+    // Update quantity and re-render
+    function updateQty(itemName, delta) {
+      let cart = getCart();
+      if (cart[itemName]) {
+        cart[itemName].qty += delta;
+        if (cart[itemName].qty <= 0) {
+          delete cart[itemName];
+        }
+        saveCart(cart);
+        renderCart();
+      }
+    }
+
+    // Completely remove an item
+    function removeItem(itemName) {
+      let cart = getCart();
+      delete cart[itemName];
+      saveCart(cart);
+      renderCart();
+    }
+
+    // Generate the HTML for the Cart
+    function renderCart() {
+      const cart = getCart();
+      const container = document.getElementById('cart-container');
+      
+      // Check if empty
+      if (Object.keys(cart).length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <h2>Your cart is empty!</h2>
+            <p>Looks like you haven't added any treats yet.</p>
+            <br>
+            <a href="index.html">Go back and explore the menu</a>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      let subtotal = 0;
+
+      // Build each item row
+      for (const [name, data] of Object.entries(cart)) {
+        const itemTotal = data.price * data.qty;
+        subtotal += itemTotal;
+
+        html += `
+          <div class="cart-item">
+            <div class="item-info">
+              <h3>${name}</h3>
+              <p>₦${data.price.toLocaleString()} each</p>
+              <button onclick="removeItem('${name}')" style="background:none; border:none; color:red; font-size:0.85rem; cursor:pointer; margin-top:0.5rem; text-decoration:underline;">Remove</button>
+            </div>
+            
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="updateQty('${name}', -1)">-</button>
+              <span class="qty-display">${data.qty}</span>
+              <button class="qty-btn" onclick="updateQty('${name}', 1)">+</button>
+            </div>
+
+            <div class="item-total">
+              ₦${itemTotal.toLocaleString()}
+            </div>
+          </div>
+        `;
+      }
+
+      // Append the Checkout Summary
+      html += `
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>₦${subtotal.toLocaleString()}</span>
+          </div>
+          <div class="summary-row">
+            <span>Delivery</span>
+            <span>Calculated on WhatsApp</span>
+          </div>
+          <div class="summary-total">
+            <span>Total</span>
+            <span>₦${subtotal.toLocaleString()}</span>
+          </div>
+
+          <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+            <svg viewBox="0 0 24 24"><path d="M12.031 21c-1.606 0-3.18-.415-4.575-1.2l-.325-.183-3.385.888.903-3.298-.2-.317A8.932 8.932 0 013.069 12c0-4.962 4.038-9 9-9s9 4.038 9 9-4.038 9-9 9zM12 5.066a6.94 6.94 0 00-6.931 6.934c0 1.378.36 2.723 1.04 3.905l.135.234-.53 1.933 1.977-.518.228.136a6.9 6.9 0 003.882 1.171h.001A6.94 6.94 0 0018.93 12 6.94 6.94 0 0012 5.066zm3.844 9.492c-.211-.106-1.248-.616-1.442-.687-.193-.07-.333-.106-.474.106-.14.212-.544.687-.667.828-.123.14-.246.158-.456.052-.211-.106-.893-.329-1.7-1.045-.628-.557-1.052-1.246-1.175-1.458-.123-.212-.013-.327.092-.432.095-.095.211-.247.316-.371.106-.123.14-.211.211-.352.07-.14.035-.264-.017-.37-.053-.106-.474-1.144-.649-1.567-.171-.412-.345-.356-.474-.363-.123-.006-.263-.006-.404-.006a.774.774 0 00-.561.264c-.193.212-.737.722-.737 1.763s.754 2.046.86 2.188c.105.14 1.492 2.277 3.614 3.193.504.217.898.347 1.205.444.507.16 969.176 1.155.275s.58-.236.807-.565c.228-.329.228-.61.16-.671-.07-.061-.264-.097-.474-.202z"/></svg>
+            Send Order via WhatsApp
+          </button>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // Format the message and open WhatsApp
+    function checkoutWhatsApp() {
+      const cart = getCart();
+      let message = "Hello Maui's Treats! I would like to place an order:\n\n";
+      let total = 0;
+      
+      for (const [name, data] of Object.entries(cart)) {
+        total += (data.price * data.qty);
+        message += ` ${data.qty}x ${name} - ₦${(data.price * data.qty).toLocaleString()}\n`;
+      }
+      
+      message += `\n*Subtotal: ₦${total.toLocaleString()}*\n\nPlease let me know how to proceed with payment and delivery.`;
+      
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Clear cart after redirecting to WhatsApp? 
+      // Optional: localStorage.removeItem('mauisCart');
+      
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    }
+
+    // Render initially
+    window.onload = renderCart;
+  </script>
+</body>
+</html>
