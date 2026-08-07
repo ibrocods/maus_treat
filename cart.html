@@ -288,8 +288,8 @@
       
       // Clear cart after redirecting to WhatsApp? 
       // Optional: localStorage.removeItem('mauisCart');
-      
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+     const waLink =  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank'
+      window.location.href = waLink;
     }
 
     // Render initially

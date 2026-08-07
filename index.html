@@ -467,7 +467,9 @@
     <img src="images/caketubs.jpeg" alt="Strawberry Donut" class="carousel-item active">
     <img src="images/creamydrink.jpeg" alt="Shawarma" class="carousel-item next">
     <img src="images/glazedoughnut.jpeg" alt="Cake Parfait" class="carousel-item hidden-next">
+    <img src="images/cakeslice.jpeg" alt="Cake Parfait" class="carousel-item hidden-next">
     <img src="images/icecreamtubs.jpeg" alt="Bento Cake" class="carousel-item hidden-next">
+    <img src="images/maus_treat_logo.png" alt="Mau's Treats Logo" class="carousel-item hidden-next">
     <img src="images/largepies.jpeg" alt="Cookies" class="carousel-item prev">
   </div>
 </section>
@@ -501,7 +503,7 @@
           <h2>Explore Our Menu</h2>
           <div class="toggle-wrapper">
             <button class="toggle-btn sweet" onclick="switchTheme('sweet')">🍩 Sweet Treats</button>
-            <button class="toggle-btn savory" onclick="switchTheme('savory')">🌯 Hot Bite</button>
+            <button class="toggle-btn savory" onclick="switchTheme('savory')">🌯 Hot Bites</button>
           </div>
         </div>
 
@@ -509,7 +511,7 @@
         <div id="grid-sweet" class="product-grid active ">
           
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Bento Cake"></div>
+            <div class="card-img-wrapper"><img src="images/bentocake.jpeg" alt="Bento Cake"></div>
             <h3>Bento Cake</h3>
             <div class="price">₦7,000</div>
             <p>4-inch beautiful bento cake with custom writing. Perfect for gifting.</p>
@@ -525,9 +527,9 @@
           </div>
           
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cake Parfait"></div>
+            <div class="card-img-wrapper"><img src="images/caketubsred.jpeg" alt="Cake Parfait"></div>
             <h3>Berry Cake Tub</h3>
-            <div class="price">₦3,000</div>
+            <div class="price">₦4,000</div>
             <p>Layers of soft sponge cake, fresh berries, and rich cream in a cup.</p>
             
             <div class="card-actions">
@@ -536,14 +538,14 @@
                 <span class="qty-display" id="qty-Berry-Cake-tub">1</span>
                 <button class="qty-btn" onclick="updatePendingQty('qty-Berry-Cake-tub', 1)">+</button>
               </div>
-              <button class="btn-add-cart" onclick="commitToCart('Berry Cake Tub', 3000, 'qty-Berry-Cake-tub', this)">Add</button>
+              <button class="btn-add-cart" onclick="commitToCart('Berry Cake Tub', 4000, 'qty-Berry-Cake-tub', this)">Add</button>
             </div>
           </div>
           
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1627914436573-fc6714041b31?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Midi Milkcake"></div>
+            <div class="card-img-wrapper"><img src="images/caketubs.jpeg" alt="Midi Milkcake"></div>
             <h3>Milkcake</h3>
-            <div class="price">₦3,000</div>
+            <div class="price">₦3,800</div>
             <p>Ultra-soft sponge cake soaked in our signature rich milk wash.</p>
             
             <div class="card-actions">
@@ -552,13 +554,13 @@
                 <span class="qty-display" id="qty-Milkcake">1</span>
                 <button class="qty-btn" onclick="updatePendingQty('qty-Milkcake', 1)">+</button>
               </div>
-              <button class="btn-add-cart" onclick="commitToCart('Milkcake', 3000, 'qty-Milkcake', this)">Add</button>
+              <button class="btn-add-cart" onclick="commitToCart('Milkcake', 3800, 'qty-Milkcake', this)">Add</button>
             </div>
           </div>
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1627914436573-fc6714041b31?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Midi Milkcake"></div>
+            <div class="card-img-wrapper"><img src="images/cakeslice.jpeg" alt="Ice Cream Cake"></div>
             <h3>Ice Cream Cake</h3>
-            <div class="price">₦3,000</div>
+            <div class="price">₦4,000</div>
             <p>Ultra-soft sponge cake soaked in our signature rich milk wash.</p>
             
             <div class="card-actions">
@@ -567,13 +569,13 @@
                 <span class="qty-display" id="qty-Ice-Cream-Cake">1</span>
                 <button class="qty-btn" onclick="updatePendingQty('qty-Ice-Cream-Cake', 1)">+</button>
               </div>
-              <button class="btn-add-cart" onclick="commitToCart('Ice Cream Cake', 3000, 'qty-Ice-Cream-Cake', this)">Add</button>
+              <button class="btn-add-cart" onclick="commitToCart('Ice Cream Cake', 4000, 'qty-Ice-Cream-Cake', this)">Add</button>
             </div>
           </div>
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1627914436573-fc6714041b31?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Midi Milkcake"></div>
+            <div class="card-img-wrapper"><img src="images/icecreamtubs2.jpeg" alt="Cake Slice"></div>
             <h3>Cake Slice</h3>
-            <div class="price">₦3,000</div>
+            <div class="price">₦5,500</div>
             <p>Ultra-soft sponge cake soaked in our signature rich milk wash.</p>
             
             <div class="card-actions">
@@ -582,7 +584,7 @@
                 <span class="qty-display" id="qty-Cake-Slice">1</span>
                 <button class="qty-btn" onclick="updatePendingQty('qty-Cake-Slice', 1)">+</button>
               </div>
-              <button class="btn-add-cart" onclick="commitToCart('Cake Slice', 3000, 'qty-Cake-Slice', this)">Add</button>
+              <button class="btn-add-cart" onclick="commitToCart('Cake Slice', 5500, 'qty-Cake-Slice', this)">Add</button>
             </div>
           </div>
 
@@ -592,7 +594,7 @@
         <div id="grid-savory" class="product-grid ">
           
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Shawarma"></div>
+            <div class="card-img-wrapper"><img src="images/shawarma.jpeg" alt="Shawarma"></div>
             <h3>Shawarma</h3>
             <div class="price">₦4,000</div>
             <p>Juicy grilled meat, double sausages, and fresh veggies wrapped tight.</p>
@@ -639,7 +641,7 @@
             </div>
           </div>
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1604085792782-8d92f276d7d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Meat Pie"></div>
+            <div class="card-img-wrapper"><img src="images/loadedfries.jpeg" alt="Loaded Fries"></div>
             <h3>Loaded Fries</h3>
             <div class="price">₦1,300</div>
             <p>Flaky crust baked to perfection with rich, seasoned meat filling.</p>
@@ -654,7 +656,7 @@
             </div>
           </div>
           <div class="card">
-            <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1604085792782-8d92f276d7d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Meat Pie"></div>
+            <div class="card-img-wrapper"><img src="images/bakedpies.jpg" alt="Baked Pies"></div>
             <h3>Baked Pies</h3>
             <div class="price">₦1,300</div>
             <p>Flaky crust baked to perfection with rich, seasoned meat filling.</p>
