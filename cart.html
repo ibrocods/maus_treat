@@ -164,136 +164,136 @@
   </main>
 
   <script>
-    const WHATSAPP_NUMBER = "2348147420159"; // Replace with real number
+   const WHATSAPP_NUMBER = "2348147420159"; // Using Mau's Treats number from your footer
 
-    // Load cart from LocalStorage
-    function getCart() {
-      return JSON.parse(localStorage.getItem('mausCart')) || {};
-    }
+// Load cart from LocalStorage
+function getCart() {
+  return JSON.parse(localStorage.getItem('mausCart')) || {};
+}
 
-    // Save cart to LocalStorage
-    function saveCart(cart) {
-      localStorage.setItem('mausCart', JSON.stringify(cart));
-    }
+// Save cart to LocalStorage
+function saveCart(cart) {
+  localStorage.setItem('mausCart', JSON.stringify(cart));
+}
 
-    // Update quantity and re-render
-    function updateQty(itemName, delta) {
-      let cart = getCart();
-      if (cart[itemName]) {
-        cart[itemName].qty += delta;
-        if (cart[itemName].qty <= 0) {
-          delete cart[itemName];
-        }
-        saveCart(cart);
-        renderCart();
-      }
-    }
-
-    // Completely remove an item
-    function removeItem(itemName) {
-      let cart = getCart();
+// Update quantity and re-render
+function updateQty(itemName, delta) {
+  let cart = getCart();
+  if (cart[itemName]) {
+    cart[itemName].qty += delta;
+    if (cart[itemName].qty <= 0) {
       delete cart[itemName];
-      saveCart(cart);
-      renderCart();
     }
+    saveCart(cart);
+    renderCart();
+  }
+}
 
-    // Generate the HTML for the Cart
-    function renderCart() {
-      const cart = getCart();
-      const container = document.getElementById('cart-container');
-      
-      // Check if empty
-      if (Object.keys(cart).length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <h2>Your cart is empty!</h2>
-            <p>Looks like you haven't added any treats yet.</p>
-            <br>
-            <a href="index.html">Go back and explore the menu</a>
-          </div>
-        `;
-        return;
-      }
+// Completely remove an item
+function removeItem(itemName) {
+  let cart = getCart();
+  delete cart[itemName];
+  saveCart(cart);
+  renderCart();
+}
 
-      let html = '';
-      let subtotal = 0;
+// Generate the HTML for the Cart
+function renderCart() {
+  const cart = getCart();
+  const container = document.getElementById('cart-container');
+  
+  // Check if empty
+  if (Object.keys(cart).length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h2>Your cart is empty!</h2>
+        <p>Looks like you haven't added any treats yet.</p>
+        <br>
+        <a href="index.html">Go back and explore the menu</a>
+      </div>
+    `;
+    return;
+  }
 
-      // Build each item row
-      for (const [name, data] of Object.entries(cart)) {
-        const itemTotal = data.price * data.qty;
-        subtotal += itemTotal;
+  let html = '';
+  let subtotal = 0;
 
-        html += `
-          <div class="cart-item">
-            <div class="item-info">
-              <h3>${name}</h3>
-              <p>₦${data.price.toLocaleString()} each</p>
-              <button onclick="removeItem('${name}')" style="background:none; border:none; color:red; font-size:0.85rem; cursor:pointer; margin-top:0.5rem; text-decoration:underline;">Remove</button>
-            </div>
-            
-            <div class="qty-controls">
-              <button class="qty-btn" onclick="updateQty('${name}', -1)">-</button>
-              <span class="qty-display">${data.qty}</span>
-              <button class="qty-btn" onclick="updateQty('${name}', 1)">+</button>
-            </div>
+  // Build each item row
+  for (const [name, data] of Object.entries(cart)) {
+    const itemTotal = data.price * data.qty;
+    subtotal += itemTotal;
 
-            <div class="item-total">
-              ₦${itemTotal.toLocaleString()}
-            </div>
-          </div>
-        `;
-      }
-
-      // Append the Checkout Summary
-      html += `
-        <div class="cart-summary">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>₦${subtotal.toLocaleString()}</span>
-          </div>
-          <div class="summary-row">
-            <span>Delivery</span>
-            <span>Calculated on WhatsApp</span>
-          </div>
-          <div class="summary-total">
-            <span>Total</span>
-            <span>₦${subtotal.toLocaleString()}</span>
-          </div>
-
-          <button class="btn-whatsapp" type="button" onclick="checkoutWhatsApp()">
-            <svg viewBox="0 0 24 24"><path d="M12.031 21c-1.606 0-3.18-.415-4.575-1.2l-.325-.183-3.385.888.903-3.298-.2-.317A8.932 8.932 0 013.069 12c0-4.962 4.038-9 9-9s9 4.038 9 9-4.038 9-9 9zM12 5.066a6.94 6.94 0 00-6.931 6.934c0 1.378.36 2.723 1.04 3.905l.135.234-.53 1.933 1.977-.518.228.136a6.9 6.9 0 003.882 1.171h.001A6.94 6.94 0 0018.93 12 6.94 6.94 0 0012 5.066zm3.844 9.492c-.211-.106-1.248-.616-1.442-.687-.193-.07-.333-.106-.474.106-.14.212-.544.687-.667.828-.123.14-.246.158-.456.052-.211-.106-.893-.329-1.7-1.045-.628-.557-1.052-1.246-1.175-1.458-.123-.212-.013-.327.092-.432.095-.095.211-.247.316-.371.106-.123.14-.211.211-.352.07-.14.035-.264-.017-.37-.053-.106-.474-1.144-.649-1.567-.171-.412-.345-.356-.474-.363-.123-.006-.263-.006-.404-.006a.774.774 0 00-.561.264c-.193.212-.737.722-.737 1.763s.754 2.046.86 2.188c.105.14 1.492 2.277 3.614 3.193.504.217.898.347 1.205.444.507.16 969.176 1.155.275s.58-.236.807-.565c.228-.329.228-.61.16-.671-.07-.061-.264-.097-.474-.202z"/></svg>
-            Send Order via WhatsApp
-          </button>
+    html += `
+      <div class="cart-item">
+        <div class="item-info">
+          <h3>${name}</h3>
+          <p>₦${data.price.toLocaleString()} each</p>
+          <button onclick="removeItem('${name}')" style="background:none; border:none; color:red; font-size:0.85rem; cursor:pointer; margin-top:0.5rem; text-decoration:underline;">Remove</button>
         </div>
-      `;
+        
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="updateQty('${name}', -1)">-</button>
+          <span class="qty-display">${data.qty}</span>
+          <button class="qty-btn" onclick="updateQty('${name}', 1)">+</button>
+        </div>
 
-      container.innerHTML = html;
-    }
+        <div class="item-total">
+          ₦${itemTotal.toLocaleString()}
+        </div>
+      </div>
+    `;
+  }
 
-    // Format the message and open WhatsApp
-    function checkoutWhatsApp() {
-      event.preventDefault();
-      const cart = getCart();
-      let message = "Hello Maui's Treats! I would like to place an order:\n\n";
-      let total = 0;
-      
-      for (const [name, data] of Object.entries(cart)) {
-        total += (data.price * data.qty);
-        message += ` ${data.qty}x ${name} - ₦${(data.price * data.qty).toLocaleString()}\n`;
-      }
-      
-      message += `\n*Subtotal: ₦${total.toLocaleString()}*\n\nPlease let me know how to proceed with payment and delivery.`;
-      
-      const encodedMessage = encodeURIComponent(message);
-      
-      // Clear cart after redirecting to WhatsApp? 
-      // Optional: localStorage.removeItem('mauisCart');
-     const waLink =  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank'
-      window.location.href = waLink;
-    }
+  // Append the Checkout Summary
+  html += `
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>₦${subtotal.toLocaleString()}</span>
+      </div>
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span>Calculated on WhatsApp</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span>₦${subtotal.toLocaleString()}</span>
+      </div>
 
-    // Render initially
-    window.onload = renderCart;
+      <button class="btn-whatsapp" type="button" onclick="checkoutWhatsApp(event)">
+        <svg viewBox="0 0 24 24"><path d="M12.031 21c-1.606 0-3.18-.415-4.575-1.2l-.325-.183-3.385.888.903-3.298-.2-.317A8.932 8.932 0 013.069 12c0-4.962 4.038-9 9-9s9 4.038 9 9-4.038 9-9 9zM12 5.066a6.94 6.94 0 00-6.931 6.934c0 1.378.36 2.723 1.04 3.905l.135.234-.53 1.933 1.977-.518.228.136a6.9 6.9 0 003.882 1.171h.001A6.94 6.94 0 0018.93 12 6.94 6.94 0 0012 5.066zm3.844 9.492c-.211-.106-1.248-.616-1.442-.687-.193-.07-.333-.106-.474.106-.14.212-.544.687-.667.828-.123.14-.246.158-.456.052-.211-.106-.893-.329-1.7-1.045-.628-.557-1.052-1.246-1.175-1.458-.123-.212-.013-.327.092-.432.095-.095.211-.247.316-.371.106-.123.14-.211.211-.352.07-.14.035-.264-.017-.37-.053-.106-.474-1.144-.649-1.567-.171-.412-.345-.356-.474-.363-.123-.006-.263-.006-.404-.006a.774.774 0 00-.561.264c-.193.212-.737.722-.737 1.763s.754 2.046.86 2.188c.105.14 1.492 2.277 3.614 3.193.504.217.898.347 1.205.444.507.16 969.176 1.155.275s.58-.236.807-.565c.228-.329.228-.61.16-.671-.07-.061-.264-.097-.474-.202z"/></svg>
+        Send Order via WhatsApp
+      </button>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+// Format the message and open WhatsApp
+function checkoutWhatsApp(event) {
+  // Check if event exists before preventing default
+  if (event) event.preventDefault(); 
+  
+  const cart = getCart();
+  let message = "Hello Maui's Treats! I would like to place an order:\n\n";
+  let total = 0;
+  
+  for (const [name, data] of Object.entries(cart)) {
+    total += (data.price * data.qty);
+    message += ` ${data.qty}x ${name} - ₦${(data.price * data.qty).toLocaleString()}\n`;
+  }
+  
+  message += `\n*Subtotal: ₦${total.toLocaleString()}*\n\nPlease let me know how to proceed with payment and delivery.`;
+  
+  const encodedMessage = encodeURIComponent(message);
+  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  
+  window.location.href = waLink;
+}
+
+// Render initially
+window.onload = renderCart;
   </script>
 </body>
 </html>
